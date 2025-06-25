@@ -1,0 +1,102 @@
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+import { SplitText } from 'gsap/SplitText';
+import { useRef } from 'react';
+import me1 from '../assets/images/462197623_1093053579054407_8175424462420298230_n.jpg';
+import Button from './UI/Button';
+
+export default function Hero() {
+    const textRef = useRef(null);
+    const contentRef = useRef(null);
+
+    useGSAP(() => {
+        // Създаваме SplitText СЛЕД като елементът е в DOM-а
+        const splitText = new SplitText(textRef.current, {
+            type: 'chars,words,lines'
+        });
+        const chars = splitText.chars;
+
+        // Задаваме начално състояние
+        gsap.set(chars, {
+            x: 150,
+            opacity: 0
+        });
+
+        gsap.set(contentRef.current, {
+            y: 50,
+            opacity: 0
+        });
+
+        // Анимираме
+        const tl = gsap.timeline();
+        tl.to(chars, {
+            x: 0,
+            opacity: 1,
+            duration: 1,
+            ease: 'power4.out',
+            stagger: 0.02,
+        })
+            .to(contentRef.current, {
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                ease: 'power3.out'
+            }, "-=0.3");
+
+        // Cleanup function
+        return () => {
+            splitText.revert();
+        };
+    }, { scope: [textRef, contentRef] });
+
+    return (
+        <div className="min-h-screen bg-white">
+            {/* Hero Title */}
+            <div className="flex-center">
+                <h1 className="text-black text-stretch" ref={textRef}>
+                    VASIL IGNATOV
+                </h1>
+            </div>
+
+            {/* Content Section */}
+            <div className="w-full mx-auto px-4 md:px-8 lg:px-12 mt-16" ref={contentRef}>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                    {/* Left Side - Images */}
+                    <div className="aspect-auto overflow-hidden self-center">
+                        <img
+                            src={me1}
+                            alt="me first"
+                            className="max-h-[75vh] h-full grayscale object-cover"
+                        />
+                    </div>
+
+                    {/* Right Side - Description */}
+                    <div className="self-end mx-auto lg:max-w-[50%]">
+                        <div className="mb-4">
+                            <p className="text-md md:text-lg font-light font-dm-sans leading-relaxed">
+                                I'm a passionate front-end developer from Bulgaria who cares about design.
+                                My focus is on precise integration and crafting innovative user experiences
+                                with modern web technologies.
+                            </p>
+                        </div>
+
+                        {/* Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-4">
+                            <Button
+                                className=""
+                                href="#projects"
+                            >
+                                See my projects
+                            </Button>
+                            <Button className="" >
+                                Contact me
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    )
+}

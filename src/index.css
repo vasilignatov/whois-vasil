@@ -24,22 +24,20 @@
     @apply flex items-center justify-center;
 }
 
+@utility flex-top {
+    @apply flex items-start justify-center;
+}
+
 @utility container {
-    @apply w-full h-screen max-w-screen-2xl mx-auto;
+    @apply w-full mx-4 md:mx-8 lg:mx-12;
 }
 
-#loading_screen {
-    @apply overflow-hidden;
+@utility text-stretch {
+    font-size: clamp(2rem, 12vw, 20rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    font-weight: 600;
+    font-family: var(--font-amiamie);
 }
 
-.loading_half {
-    @apply absolute w-screen h-[50vh] bg-black flex items-center justify-center;
-}
-
-.loading_half.upper {
-    @apply top-0 left-0;
-}
-
-.loading_half.lower {
-    @apply bottom-0 left-0;
-}
