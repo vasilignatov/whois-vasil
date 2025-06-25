@@ -1,4 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
 @import "tailwindcss";
+
+@font-face {
+    font-family: 'Amiamie';
+    src: url('./assets/fonts/Amiamie.woff2') format('woff2');
+    font-weight: 100 900;
+    font-display: swap;
+}
+
+@theme {
+    --font-dm-sans: 'DM Sans', sans-serif;
+    --font-amiamie: 'Amiamie', sans-serif;
+}
 
 :root {
     --color-primary: #000;
