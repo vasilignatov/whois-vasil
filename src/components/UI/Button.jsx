@@ -44,7 +44,7 @@ export default function Button({ children, className, ...props }) {
             onMouseLeave={handleMouseLeave}
             {...props}
         >
-            <span ref={spanRef} className="block font-medium font-amiamie">
+            <span ref={spanRef} className="block font-medium font-amiamie text-center">
                 {children}
             </span>
         </a>

@@ -5,18 +5,18 @@ import { useRef } from 'react';
 
 function LoadingScreen({ onComplete }) {
   const containerRef = useRef(null);
-  const loadingText = useRef(null);
+  // const loadingText = useRef(null);
   const introRef = useRef(null);
 
   useGSAP(() => {
-    const splitText = new SplitText(loadingText.current, { type: "chars" });
-    const chars = splitText.chars;
+    // const splitText = new SplitText(loadingText.current, { type: "chars" });
+    // const chars = splitText.chars;
 
-    gsap.set(chars, {
-      color: "white",
-      scale: 1,
-      opacity: 1,
-    });
+    // gsap.set(chars, {
+    //   color: "white",
+    //   scale: 1,
+    //   opacity: 1,
+    // });
 
     const tl = gsap.timeline({
       onComplete: () => {
@@ -24,17 +24,17 @@ function LoadingScreen({ onComplete }) {
       }
     });
 
-    tl.to(chars, {
-      scale: 1.3,
-      opacity: 0,
-      duration: 2,
-      stagger: 0.06,
-      ease: "power2.out",
-      onComplete: () => {
-        loadingText.current.style.display = "none";
-        introRef.current.style.display = "block";
-      }
-    }, "+=0.3");
+    // tl.to(chars, {
+    //   scale: 1.3,
+    //   opacity: 0,
+    //   duration: 2,
+    //   stagger: 0.06,
+    //   ease: "power2.out",
+    //   onComplete: () => {
+    //     loadingText.current.style.display = "none";
+    //     introRef.current.style.display = "block";
+    //   }
+    // }, "+=0.3");
 
     tl
       .fromTo('#intro_name',
@@ -63,11 +63,11 @@ function LoadingScreen({ onComplete }) {
 
   return (
     <div className='h-screen w-screen !overflow-hidden bg-black px-8 md:px-12 flex justify-center items-center' ref={containerRef}>
-      <h1 className='text-white text-4xl uppercase font-bold z-10' ref={loadingText}>
+      {/* <h1 className='text-white text-4xl uppercase font-bold z-10' ref={loadingText}>
         vasiligantov.dev
-      </h1>
+      </h1> */}
 
-      <div className="hidden !overflow-hidden absolute inset-0 font-amiamie text-white bg-black px-8 md:px-12" ref={introRef}>
+      <div className=" !overflow-hidden absolute inset-0 font-amiamie text-white bg-black px-8 md:px-12" ref={introRef}>
         {/* Larger screens*/}
         <div className="hidden xl:block h-full w-full lg:text-[10rem]">
           <div className="h-full w-full grid grid-rows-3">
@@ -85,7 +85,7 @@ function LoadingScreen({ onComplete }) {
 
             <div className="row-start-3 flex justify-end items-end">
               <span id="intro_subtitle">
-                web developer
+                developer
               </span>
             </div>
           </div>

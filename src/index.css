@@ -41,3 +41,19 @@
     font-family: var(--font-amiamie);
 }
 
+@utility text-stretch-small {
+    font-size: clamp(2rem, 12vw, 16rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    white-space: nowrap;
+    font-weight: 600;
+    font-family: var(--font-amiamie);
+}
+
+.slides-wrapper {
+    @apply mt-4;
+}
+
+.panel {
+    @apply w-full min-h-screen relative overflow-hidden;
+}

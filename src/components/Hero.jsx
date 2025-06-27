@@ -10,7 +10,6 @@ export default function Hero() {
     const contentRef = useRef(null);
 
     useGSAP(() => {
-        // Създаваме SplitText СЛЕД като елементът е в DOM-а
         const splitText = new SplitText(textRef.current, {
             type: 'chars,words,lines'
         });
@@ -50,7 +49,7 @@ export default function Hero() {
     }, { scope: [textRef, contentRef] });
 
     return (
-        <div className="min-h-screen bg-white">
+        <section className="panel bg-white">
             {/* Hero Title */}
             <div className="flex-center">
                 <h1 className="text-black text-stretch" ref={textRef}>
@@ -59,7 +58,7 @@ export default function Hero() {
             </div>
 
             {/* Content Section */}
-            <div className="w-full mx-auto px-4 md:px-8 lg:px-12 mt-16" ref={contentRef}>
+            <div className="w-full mx-auto px-4 md:px-8 lg:px-12 mt-4" ref={contentRef}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
                     {/* Left Side - Images */}
@@ -97,6 +96,6 @@ export default function Hero() {
                 </div>
 
             </div>
-        </div>
+        </section>
     )
 }
