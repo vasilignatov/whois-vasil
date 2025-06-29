@@ -1,120 +1,142 @@
 import { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
+import { SplitText } from 'gsap/SplitText';
 import gsap from 'gsap';
 import { createPortal } from 'react-dom';
+import Socketio from "../../assets/images/certificates/Socket.io.jpg";
+import JSBackend from "../../assets/images/certificates/JS Back-End - September 2022 - Certificate.jpeg";
+import MySQL from "../../assets/images/certificates/MySQL - September 2022 - Certificate.jpeg";
+import AWSEssentials from "../../assets/images/certificates/AWS Essentials - July 2021 - Certificate.jpeg";
+import JSApplications from "../../assets/images/certificates/JS Applications - June 2021 - Certificate.jpeg";
+import JSFundamentals from "../../assets/images/certificates/JS Fundamentals - September 2020 - Certificate.jpeg";
+
+gsap.registerPlugin(SplitText);
 
 const certifications = [
     {
         id: 0,
-        title: "AWS Solutions Architect",
-        issuer: "Amazon Web Services",
+        title: "Socket.io",
         year: "2023",
-        status: "Active",
-        image: "https://via.placeholder.com/400x300/333/fff?text=AWS+Certificate"
+        image: Socketio
     },
     {
         id: 1,
-        title: "React Developer Certification",
-        issuer: "Meta",
+        title: "JS Back-End",
         year: "2022",
-        status: "Active",
-        image: "https://via.placeholder.com/400x300/0066cc/fff?text=React+Certificate"
+        image: JSBackend
     },
     {
         id: 2,
-        title: "MongoDB Developer",
-        issuer: "MongoDB University",
-        year: "2023",
-        status: "Active",
-        image: "https://via.placeholder.com/400x300/4CAF50/fff?text=MongoDB+Certificate"
+        title: "MySQL",
+        year: "2022",
+        image: MySQL
     },
     {
         id: 3,
-        title: "Docker Certified Associate",
-        issuer: "Docker Inc.",
-        year: "2022",
-        status: "Active",
-        image: "https://via.placeholder.com/400x300/2196F3/fff?text=Docker+Certificate"
+        title: "AWS Essentials",
+        year: "2021",
+        image: AWSEssentials
+    },
+    {
+        id: 4,
+        title: "JS Applications",
+        year: "2021",
+        image: JSApplications
+    },
+    {
+        id: 5,
+        title: "JS Fundamentals",
+        year: "2020",
+        image: JSFundamentals
     }
 ];
 
 export default function Certifications() {
-    const [hoveredId, setHoveredId] = useState(null);
+    const [hoveredCert, setHoveredCert] = useState(null);
     const tooltipRef = useRef(null);
+    const xToRef = useRef(null);
+    const yToRef = useRef(null);
+    const titleRef = useRef(null);
 
     useGSAP(() => {
-        // Initialize tooltip - hidden by default
-        gsap.fromTo("#cert-title",
-            { opacity: 0, y: 100 },
-            {
-                opacity: 1, y: 0, duration: 1.2, ease: 'power3.out',
-                scrollTrigger: {
-                    trigger: "#cert-title",
-                    start: "top 80%",
-                    toggleActions: "play none none reverse"
+        // Split text using GSAP SplitText
+        if (titleRef.current) {
+            const split = new SplitText(titleRef.current, { type: "chars" });
+
+            // Animate letters with stagger
+            gsap.fromTo(split.chars,
+                { 
+                    opacity: 0, 
+                    filter: "blur(10px)",
+                    y: 50 
+                },
+                {
+                    opacity: 1, 
+                    filter: "blur(0px)",
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    stagger: 0.05,
+                    scrollTrigger: {
+                        trigger: titleRef.current,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    }
                 }
-            }
-        );
+            );
+        }
 
         if (tooltipRef.current) {
+            // Set initial position and centering
             gsap.set(tooltipRef.current, {
-                scale: 0,
-                opacity: 0,
-                transformOrigin: "center center",
-                display: "none"
+                xPercent: -50,
+                yPercent: -50
+            });
+
+            // Create quickTo functions for smooth following
+            xToRef.current = gsap.quickTo(tooltipRef.current, "x", {
+                duration: 0.3,
+                ease: "circ.out"
+            });
+            yToRef.current = gsap.quickTo(tooltipRef.current, "y", {
+                duration: 0.3,
+                ease: "circ.out"
             });
         }
     }, []);
 
     useGSAP(() => {
-        if (hoveredId !== null && tooltipRef.current) {
-            // Show tooltip with cool animation
-            gsap.to(tooltipRef.current, {
-                scale: 1,
-                opacity: 1,
-                duration: 0.4,
-                ease: "back.out(1.7)",
-                display: "block"
-            });
-        } else if (tooltipRef.current) {
-            // Hide tooltip with smooth animation
-            gsap.to(tooltipRef.current, {
-                scale: 0,
-                opacity: 0,
-                duration: 0.3,
-                ease: "power2.in",
-                display: "none"
-            });
-        }
-    }, [hoveredId]);
+        const handleGlobalMouseMove = (e) => {
+            if (xToRef.current && yToRef.current) {
+                xToRef.current(e.clientX);
+                yToRef.current(e.clientY);
+            }
+        };
 
-    const handleHover = (id) => {
-        setHoveredId(id);
+        window.addEventListener("mousemove", handleGlobalMouseMove);
+
+        return () => {
+            window.removeEventListener("mousemove", handleGlobalMouseMove);
+        };
+    }, []);
+
+    const handleHover = (cert) => {
+        // console.log('Hovering cert:', cert);
+        setHoveredCert(cert);
     };
 
     const handleMouseLeave = () => {
-        setHoveredId(null);
-    };
-
-    const handleMouseMove = (e) => {
-        const newX = e.clientX + 20;
-        const newY = e.clientY + 20;
-
-        // Smooth tooltip following with GSAP
-        if (tooltipRef.current && hoveredId !== null) {
-            gsap.to(tooltipRef.current, {
-                x: newX,
-                y: newY,
-                duration: 0.15,
-                ease: "power2.out"
-            });
-        }
+        // console.log('Mouse leave');
+        setHoveredCert(null);
     };
 
     return (
-        <div className="py-24">
+        <div
+            className="py-24 certifications-section"
+            onMouseLeave={handleMouseLeave}
+        >
             <div className="mb-16">
-                <h2 id="cert-title" className='text-black text-8xl font-semibold text-left'>
+                <h2 ref={titleRef} className='text-black text-stretch-spaced text-left'>
                     Certifications
                 </h2>
             </div>
@@ -122,9 +144,8 @@ export default function Certifications() {
             <div className="relative w-full">
                 {certifications.map((cert) => (
                     <div
-                        onMouseEnter={() => handleHover(cert.id)}
+                        onMouseEnter={() => handleHover(cert)}
                         onMouseLeave={handleMouseLeave}
-                        onMouseMove={handleMouseMove}
                         key={cert.id}
                         className="relative cursor-pointer border-b border-gray-200 py-6 px-8 overflow-hidden group"
                     >
@@ -143,28 +164,25 @@ export default function Certifications() {
                 ))}
             </div>
 
-            {/* Tooltip чрез Portal - рендерира в document.body */}
+
             {createPortal(
                 <div
                     ref={tooltipRef}
-                    className="fixed z-[9999] w-[350px] h-[400px] bg-white text-black rounded-xl shadow-2xl border border-gray-200 pointer-events-none"
-                    style={{ left: 0, top: 0 }}
+                    className={`fixed z-[9999] max-w-md  bg-red-500 text-white shadow-2xl border-8 border-black pointer-events-none transition-all duration-300 ${hoveredCert ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+                        }`}
+                    style={{
+                        left: '100px',
+                        top: '100px',
+                        willChange: 'transform'
+                    }}
                 >
-                    {hoveredId !== null && (
-                        <div className="p-6 h-full flex flex-col justify-center items-center gap-6">
+                    {hoveredCert && (
+                        <div className="h-full flex flex-col justify-center items-center">
                             <img
-                                src={certifications[hoveredId].image}
-                                alt={certifications[hoveredId].title}
-                                className="w-32 h-32 object-cover rounded-lg shadow-md"
+                                src={hoveredCert.image}
+                                alt={hoveredCert.title}
+                                className="w-full h-auto object-cover rounded-lg shadow-md"
                             />
-                            <div className="text-center">
-                                <h1 className="text-2xl font-bold text-gray-800 mb-3">
-                                    {certifications[hoveredId].title}
-                                </h1>
-                                <p className="text-gray-600 leading-relaxed">
-                                    {certifications[hoveredId].description}
-                                </p>
-                            </div>
                         </div>
                     )}
                 </div>,
