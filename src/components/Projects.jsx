@@ -43,7 +43,7 @@ export default function Projects() {
             video: cvStartVideo,
             bgColor: "bg-gray-600",
             githubUrl: "https://github.com/vasilignatov/old-portfolio",
-            liveUrl: "https://old-portfolio-demo.com"
+            liveUrl: "https://vasilignatov.netlify.app/"
         },
         {
             name: "Chatbook",
@@ -54,7 +54,7 @@ export default function Projects() {
             video: chatbookVideo,
             bgColor: "bg-yellow-400",
             githubUrl: "https://github.com/vasilignatov/chatbook-frontend",
-            liveUrl: "https://chatbook-frontend.vercel.app/"
+            liveUrl: "https://sensational-kangaroo-59d175.netlify.app/"
         },
         {
             name: "E-commerce React App",
@@ -65,12 +65,12 @@ export default function Projects() {
             video: optiVideo,
             bgColor: "bg-purple-500",
             githubUrl: "https://github.com/vasilignatov/ecommerce-frontend",
-            liveUrl: "https://ecommerce-react-app-frontend.vercel.app/"
+            liveUrl: "https://playful-daifuku-0487b1.netlify.app/"
         },
         {
             name: "Express Boilerplate",
             year: "2023",
-            description: "A comprehensive boilerplate for quickly building secure RESTful APIs using Express and Mongoose. Features authentication with Passport, JWT tokens with refresh functionality, global error handling, MongoDB integration, security with Helmet, CORS support, gzip compression, and XSS protection. Includes pre-built auth and user management endpoints with role-based authorization.",
+            description: "New versison coming soon... A comprehensive boilerplate for quickly building secure RESTful APIs using Express and Mongoose. Features authentication with Passport, JWT tokens with refresh functionality, global error handling, MongoDB integration, security with Helmet, CORS support, gzip compression, and XSS protection. Includes pre-built auth and user management endpoints with role-based authorization.",
             technologies: ["Express", "Node.js", "Mongoose", "MongoDB", "Passport", "JWT", "Helmet", "dotenv"],
             image: "/src/assets/images/projects/express-boilerplate.jpg",
             video: unikoVideo,

@@ -9,15 +9,15 @@ gsap.registerPlugin(ScrollTrigger);
 const socialLinks = [
     {
         name: "Email",
-        url: "mailto:your@email.com"
+        url: "mailto:vasilignatow@gmail.com"
     },
     {
         name: "LinkedIn",
-        url: "https://linkedin.com/in/your-profile"
+        url: "https://www.linkedin.com/in/vasil-ignatov-ignatov/"
     },
     {
         name: "Instagram",
-        url: "https://instagram.com/your-profile"
+        url: "https://www.instagram.com/vasil.ignatov/"
     }
 ];
 
