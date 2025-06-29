@@ -2,7 +2,8 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/SplitText';
 import { useRef } from 'react';
-import me1 from '../assets/images/462197623_1093053579054407_8175424462420298230_n.jpg';
+import sampleVideo from '../assets/videos/sample.mp4';
+import resumePDF from '../assets/pdf/Vasil_Ignatov_Resume.pdf';
 import Button from './UI/Button';
 
 export default function Hero() {
@@ -49,7 +50,7 @@ export default function Hero() {
     }, { scope: [textRef, contentRef] });
 
     return (
-        <section className="panel bg-white">
+        <section id="hero" className="panel bg-white">
             {/* Hero Title */}
             <div className="flex-center">
                 <h1 className="text-black text-stretch" ref={textRef}>
@@ -61,17 +62,20 @@ export default function Hero() {
             <div className="w-full mx-auto px-4 md:px-8 lg:px-12 mt-4" ref={contentRef}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-                    {/* Left Side - Images */}
+                    {/* Left Side - Video */}
                     <div className="aspect-auto overflow-hidden self-center">
-                        <img
-                            src={me1}
-                            alt="me first"
+                        <video
+                            src={sampleVideo}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
                             className="max-h-[75vh] h-full grayscale object-cover"
                         />
                     </div>
 
                     {/* Right Side - Description */}
-                    <div className="self-end mx-auto lg:max-w-[50%]">
+                    <div className="self-end mx-auto xl:max-w-[50%]">
                         <div className="mb-4">
                             <p className="text-md md:text-lg font-light font-dm-sans leading-relaxed">
                                 I'm a passionate front-end developer from Bulgaria who cares about design.
@@ -82,11 +86,9 @@ export default function Hero() {
 
                         {/* Buttons */}
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Button
-                                className=""
-                                href="#projects"
-                            >
-                                See my projects
+
+                            <Button href={resumePDF} download className='w-full md:w-fit'>
+                                Download CV
                             </Button>
                             <Button className="" >
                                 Contact me
