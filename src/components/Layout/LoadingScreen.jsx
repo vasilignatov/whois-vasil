@@ -67,7 +67,7 @@ function LoadingScreen({ onComplete }) {
         vasiligantov.dev
       </h1> */}
 
-      <div className=" !overflow-hidden absolute inset-0 font-amiamie text-white bg-black px-8 md:px-12" ref={introRef}>
+      <div className="!overflow-hidden absolute inset-0 font-amiamie text-white bg-black px-8 md:px-12" ref={introRef}>
         {/* Larger screens*/}
         <div className="hidden xl:block h-full w-full lg:text-[10rem]">
           <div className="h-full w-full grid grid-rows-3">

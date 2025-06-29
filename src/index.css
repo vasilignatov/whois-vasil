@@ -20,6 +20,18 @@
     --color-bg-primary: #eeebdc;
 }
 
+/* Smooth scroll for all elements */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Override smooth scroll for reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
 @utility flex-center {
     @apply flex items-center justify-center;
 }
@@ -41,14 +53,21 @@
     font-family: var(--font-amiamie);
 }
 
-@utility text-stretch-small {
-    font-size: clamp(2rem, 12vw, 16rem);
-    letter-spacing: 0.02em;
+@utility text-stretch-spaced {
+    font-size: clamp(0.8rem, 5vw, 6rem);
+    letter-spacing: clamp(0.05em, 1.5vw, 0.3em);
     line-height: 1;
-    white-space: nowrap;
     font-weight: 600;
     font-family: var(--font-amiamie);
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 0 0.5rem;
+    box-sizing: border-box;
+    overflow: hidden;
 }
+
 
 .slides-wrapper {
     @apply mt-4;

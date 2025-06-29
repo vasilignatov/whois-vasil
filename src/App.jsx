@@ -28,19 +28,14 @@ function App() {
 
     const timer = setTimeout(() => {
       const panels = gsap.utils.toArray(".panel");
-      console.log("Panels found:", panels);
       
       if (panels.length === 0) {
-        console.log("No panels found!");
         return;
       }
       
       const animatePanels = panels.slice(0, -1);
-      console.log("Animating panels:", animatePanels);
       
-      animatePanels.forEach((panel, index) => {
-        console.log(`Setting up animation for panel ${index}`);
-        
+      animatePanels.forEach((panel) => {
         let tl = gsap.timeline({
           scrollTrigger: {
             trigger: panel,
@@ -50,7 +45,6 @@ function App() {
             pinSpacing: false,
             pin: true,
             scrub: 1,
-            markers: true, // За debugging
             onRefresh: () => gsap.set(panel, { 
               transformOrigin: "center " + (panel.offsetHeight - window.innerHeight / 2) + "px" 
             })
@@ -70,18 +64,21 @@ function App() {
   return (
     <>
       <main ref={containerRef}>
-        <MediaQueryDebugger />
+        {/* <MediaQueryDebugger /> */}
 
         {isLoading && <LoadingScreen onComplete={handleLoadingComplete} />}
 
         {!isLoading && (
-          <div className="slides-wrapper">
-            <Hero />
-            <About />
-            <Work />
-            <Projects />
-            <Contacts />
-          </div>
+          <>
+            <Header />
+            <div className="slides-wrapper">
+              <Hero />
+              <About />
+              <Work />
+              <Projects />
+              <Contacts />
+            </div>
+          </>
         )}
       </main>
     </>

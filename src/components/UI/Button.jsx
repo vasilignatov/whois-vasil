@@ -2,10 +2,35 @@ import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useRef } from 'react';
 
-export default function Button({ children, className, ...props }) {
+export default function Button({ children, className, onClick, ...props }) {
     const buttonRef = useRef(null);
     const spanRef = useRef(null);
     const tlRef = useRef();
+
+    // Combined click handler for smooth scroll and custom onClick
+    const handleClick = (e) => {
+        // First handle smooth scroll for internal links
+        if (props.href && props.href.startsWith('#')) {
+            e.preventDefault();
+            
+            if (props.href === '#') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                const targetElement = document.querySelector(props.href);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        }
+        
+        // Then call custom onClick if provided
+        if (onClick) {
+            onClick(e);
+        }
+    };
 
     useGSAP(() => {
         tlRef.current = gsap.timeline({ paused: true });
@@ -42,6 +67,7 @@ export default function Button({ children, className, ...props }) {
             className={`relative overflow-hidden px-8 py-4 rounded-full border border-black ${className || ''}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
             {...props}
         >
             <span ref={spanRef} className="block font-medium font-amiamie text-center">
