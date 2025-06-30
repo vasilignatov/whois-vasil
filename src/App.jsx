@@ -22,19 +22,19 @@ function App() {
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
-  
-  useGSAP(() => { 
+
+  useGSAP(() => {
     if (isLoading) return;
 
     const timer = setTimeout(() => {
       const panels = gsap.utils.toArray(".panel");
-      
+
       if (panels.length === 0) {
         return;
       }
-      
+
       const animatePanels = panels.slice(0, -1);
-      
+
       animatePanels.forEach((panel) => {
         let tl = gsap.timeline({
           scrollTrigger: {
@@ -45,14 +45,14 @@ function App() {
             pinSpacing: false,
             pin: true,
             scrub: 1,
-            onRefresh: () => gsap.set(panel, { 
-              transformOrigin: "center " + (panel.offsetHeight - window.innerHeight / 2) + "px" 
+            onRefresh: () => gsap.set(panel, {
+              transformOrigin: "center " + (panel.offsetHeight - window.innerHeight / 2) + "px"
             })
           }
         });
 
-        tl.fromTo(panel, 
-          { scale: 1, opacity: 1 }, 
+        tl.fromTo(panel,
+          { scale: 1, opacity: 1 },
           { scale: 0.5, opacity: 0.5, duration: 1 }
         );
       });
