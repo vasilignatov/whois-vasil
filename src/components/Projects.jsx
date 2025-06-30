@@ -9,10 +9,9 @@ import { X } from "lucide-react";
 
 // Import video files
 import chatbookVideo from "../assets/videos/chatbook.mp4";
-import cvStartVideo from "../assets/videos/cv-start.mp4";
-import optiVideo from "../assets/videos/opti.mp4";
-import unikoVideo from "../assets/videos/uniko.mp4";
-import sampleVideo from "../assets/videos/sample.mp4";
+import oldCvVideo from "../assets/videos/old_cv.mp4";
+import newCvVideo from "../assets/videos/new-cv.mp4";
+import expressBoilerplateVideo from "../assets/videos/express-boilerplate.mp4";
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
@@ -29,7 +28,7 @@ export default function Projects() {
             description: "Modern animated portfolio website built with React and GSAP. Features smooth scroll animations, interactive project cards, split-text effects, horizontal scrolling sections, and responsive design with Tailwind CSS. Showcases advanced animation techniques and modern web development skills.",
             technologies: ["React", "GSAP", "ScrollTrigger", "SplitText", "Tailwind CSS", "Vite"],
             image: "/src/assets/images/projects/new-portfolio.jpg",
-            video: sampleVideo,
+            video: newCvVideo,
             bgColor: "bg-indigo-500",
             githubUrl: "https://github.com/vasilignatov/whois-vasil",
             liveUrl: "https://vasilignatov.dev/"
@@ -40,7 +39,7 @@ export default function Projects() {
             description: "Classic portfolio website built with vanilla JavaScript, HTML and CSS. Features clean design, responsive layout, and showcases previous web development projects and skills.",
             technologies: ["JavaScript", "HTML", "CSS", "Bootstrap"],
             image: "/src/assets/images/projects/old_portfolio.png",
-            video: cvStartVideo,
+            video: oldCvVideo,
             bgColor: "bg-gray-600",
             githubUrl: "https://github.com/vasilignatov/vasilignatov.dev",
             liveUrl: "https://vasilignatov.netlify.app/"
@@ -62,7 +61,7 @@ export default function Projects() {
             description: "E-commerce project created with MERN stack. The application is rich in functionalities including shopping cart, user authentication, product management, and payment processing.",
             technologies: ["ReactJS", "Node.js", "Express", "MongoDB", "Stripe"],
             image: "/src/assets/images/projects/e-com.jpg",
-            video: optiVideo,
+            video: '',
             bgColor: "bg-purple-500",
             githubUrl: "https://github.com/vasilignatov/ecommerce-frontend",
             liveUrl: "https://playful-daifuku-0487b1.netlify.app/"
@@ -73,7 +72,7 @@ export default function Projects() {
             description: "New versison coming soon... A comprehensive boilerplate for quickly building secure RESTful APIs using Express and Mongoose. Features authentication with Passport, JWT tokens with refresh functionality, global error handling, MongoDB integration, security with Helmet, CORS support, gzip compression, and XSS protection. Includes pre-built auth and user management endpoints with role-based authorization.",
             technologies: ["Express", "Node.js", "Mongoose", "MongoDB", "Passport", "JWT", "Helmet", "dotenv"],
             image: "/src/assets/images/projects/express-boilerplate.jpg",
-            video: unikoVideo,
+            video: expressBoilerplateVideo,
             bgColor: "bg-green-500",
             githubUrl: "https://github.com/vasilignatov/express-boilerplate",
             liveUrl: "https://www.npmjs.com/package/@vasilignatov/express-boilerplate"
@@ -170,49 +169,120 @@ export default function Projects() {
             );
         }
 
-        // Hover animations for cards
+        // Intersection Observer for lazy loading videos
+        const observerOptions = {
+            root: null,
+            rootMargin: '100px',
+            threshold: 0.1
+        };
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    if (video.dataset.src) {
+                        video.src = video.dataset.src;
+                        video.load();
+                        video.removeAttribute('data-src');
+                        videoObserver.unobserve(video);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Hover animations for cards with video control
         const cards = gsap.utils.toArray(".project-card");
 
         cards.forEach(card => {
+            const video = card.querySelector(".card-video");
             const image = card.querySelector(".card-image");
             const content = card.querySelector(".card-content");
+            const hasVideo = video !== null;
+            
+            // Set up lazy loading for video if it exists
+            if (hasVideo && video.dataset.src) {
+                videoObserver.observe(video);
+            }
 
             card.addEventListener("mouseenter", () => {
+                // GSAP animations
                 gsap.to(card, {
                     y: -10,
                     scale: 1.05,
                     duration: 0.3,
                     ease: "power2.out"
                 });
-                gsap.to(image, {
-                    scale: 1.1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
+                
+                // Scale the appropriate media element
+                if (hasVideo) {
+                    gsap.to(video, {
+                        scale: 1.1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                } else {
+                    gsap.to(image, {
+                        scale: 1.1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+                
                 gsap.to(content, {
                     y: -5,
                     duration: 0.3,
                     ease: "power2.out"
                 });
+
+                // Play video on hover (only if video exists and is loaded)
+                if (hasVideo && !video.dataset.src) {
+                    video.currentTime = 0; // Reset to beginning
+                    video.play().catch(e => console.log('Video play failed:', e));
+                    
+                    // Fade out image, fade in video
+                    gsap.to(image, { opacity: 0, duration: 0.3 });
+                    gsap.to(video, { opacity: 1, duration: 0.3 });
+                }
             });
 
             card.addEventListener("mouseleave", () => {
+                // GSAP animations
                 gsap.to(card, {
                     y: 0,
                     scale: 1,
                     duration: 0.3,
                     ease: "power2.out"
                 });
-                gsap.to(image, {
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
+                
+                // Reset scale for the appropriate media element
+                if (hasVideo) {
+                    gsap.to(video, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                } else {
+                    gsap.to(image, {
+                        scale: 1,
+                        duration: 0.3,
+                        ease: "power2.out"
+                    });
+                }
+                
                 gsap.to(content, {
                     y: 0,
                     duration: 0.3,
                     ease: "power2.out"
                 });
+
+                // Pause video on mouse leave (only if video exists and is loaded)
+                if (hasVideo && !video.dataset.src) {
+                    video.pause();
+                    
+                    // Fade in image, fade out video
+                    gsap.to(image, { opacity: 1, duration: 0.3 });
+                    gsap.to(video, { opacity: 0, duration: 0.3 });
+                }
             });
         });
 
@@ -227,6 +297,13 @@ export default function Projects() {
                 { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
             );
         }
+
+        // Cleanup observer on component unmount/re-render
+        return () => {
+            if (videoObserver) {
+                videoObserver.disconnect();
+            }
+        };
 
     }, { scope: containerRef, dependencies: [isModalOpen] });
 
@@ -265,13 +342,30 @@ export default function Projects() {
                         >
                             {/* Card Container */}
                             <div className="bg-white p-6 border border-gray-300 shadow-sm">
-                                {/* Card Image */}
-                                <div className="mb-3 overflow-hidden">
+                                {/* Card Media Container */}
+                                <div className="mb-3 overflow-hidden relative bg-gray-100">
+                                    {/* Static Image (default visible) */}
                                     <img
                                         src={project.image}
                                         alt={project.name}
-                                        className="card-image w-full aspect-square object-cover"
+                                        className="card-image w-full aspect-square object-cover transition-opacity duration-300"
+                                        loading="lazy"
+                                        decoding="async"
                                     />
+                                    
+                                    {/* Video (hidden by default, shown on hover) - only if video exists */}
+                                    {project.video && (
+                                        <video
+                                            className="card-video w-full aspect-square object-contain absolute inset-0 opacity-0 transition-opacity duration-300 bg-black"
+                                            data-src={project.video}
+                                            loop
+                                            muted
+                                            playsInline
+                                            preload="none"
+                                            loading="lazy"
+                                            aria-label={`${project.name} project demo video`}
+                                        />
+                                    )}
                                 </div>
 
                                 {/* Card Content */}
@@ -309,16 +403,25 @@ export default function Projects() {
 
                         {/* Modal Content */}
                         <div className="flex flex-col lg:grid lg:grid-cols-2 h-full max-h-[95vh]">
-                            {/* Top/Left: Video */}
-                            <div className="h-64 md:h-80 lg:h-full lg:min-h-[500px] relative">
-                                <video
-                                    src={selectedProject.video}
-                                    autoPlay
-                                    loop
-                                    muted
-                                    playsInline
-                                    className="w-full h-full object-cover"
-                                />
+                            {/* Top/Left: Media (Video or Image) */}
+                            <div className="h-64 md:h-80 lg:h-full lg:min-h-[500px] relative bg-black">
+                                {selectedProject.video ? (
+                                    <video
+                                        src={selectedProject.video}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        className="w-full h-full object-contain"
+                                        aria-label={`${selectedProject.name} project demo video`}
+                                    />
+                                ) : (
+                                    <img
+                                        src={selectedProject.image}
+                                        alt={selectedProject.name}
+                                        className="w-full h-full object-contain"
+                                    />
+                                )}
                             </div>
 
                             {/* Bottom/Right: Content */}
