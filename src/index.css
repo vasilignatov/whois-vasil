@@ -5,13 +5,17 @@
 @font-face {
     font-family: 'Amiamie';
     src: url('./assets/fonts/Amiamie.woff2') format('woff2');
-    font-weight: 100 900;
-    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Amiamie-Light';
+    src: url('./assets/fonts/Amiamie-Light.otf') format('otf');
 }
 
 @theme {
     --font-dm-sans: 'DM Sans', sans-serif;
     --font-amiamie: 'Amiamie', sans-serif;
+    --font-amiamie-light: 'Amiamie-Light', sans-serif;
 }
 
 :root {
