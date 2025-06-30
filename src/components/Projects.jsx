@@ -13,6 +13,13 @@ import oldCvVideo from "../assets/videos/old_cv.mp4";
 import newCvVideo from "../assets/videos/new-cv.mp4";
 import expressBoilerplateVideo from "../assets/videos/express-boilerplate.mp4";
 
+// Import project images
+import newPortfolioImg from "../assets/images/projects/new-portfolio.jpg";
+import oldPortfolioImg from "../assets/images/projects/old_portfolio.jpg";
+import chatbookImg from "../assets/images/projects/chatbook.jpg";
+import ecomImg from "../assets/images/projects/e-com.jpg";
+import expressBoilerplateImg from "../assets/images/projects/express-boilerplate.jpg";
+
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Projects() {
@@ -27,7 +34,7 @@ export default function Projects() {
             year: "2024",
             description: "Modern animated portfolio website built with React and GSAP. Features smooth scroll animations, interactive project cards, split-text effects, horizontal scrolling sections, and responsive design with Tailwind CSS. Showcases advanced animation techniques and modern web development skills.",
             technologies: ["React", "GSAP", "ScrollTrigger", "SplitText", "Tailwind CSS", "Vite"],
-            image: "/src/assets/images/projects/new-portfolio.jpg",
+            image: newPortfolioImg,
             video: newCvVideo,
             bgColor: "bg-indigo-500",
             githubUrl: "https://github.com/vasilignatov/whois-vasil",
@@ -38,7 +45,7 @@ export default function Projects() {
             year: "2023",
             description: "Classic portfolio website built with vanilla JavaScript, HTML and CSS. Features clean design, responsive layout, and showcases previous web development projects and skills.",
             technologies: ["JavaScript", "HTML", "CSS", "Bootstrap"],
-            image: "/src/assets/images/projects/old_portfolio.png",
+            image: oldPortfolioImg,
             video: oldCvVideo,
             bgColor: "bg-gray-600",
             githubUrl: "https://github.com/vasilignatov/vasilignatov.dev",
@@ -49,7 +56,7 @@ export default function Projects() {
             year: "2023",
             description: "Chatbook is Messenger clone application created with MERN stack and socket.io for real time chatting. Features include real-time messaging, user authentication, and modern chat interface.",
             technologies: ["ReactJS", "React-Bootstrap", "Express", "Node.js", "Socket.io", "Mongoose"],
-            image: "/src/assets/images/projects/chatbook.jpg",
+            image: chatbookImg,
             video: chatbookVideo,
             bgColor: "bg-yellow-400",
             githubUrl: "https://github.com/vasilignatov/chatbook-frontend",
@@ -60,7 +67,7 @@ export default function Projects() {
             year: "2022",
             description: "E-commerce project created with MERN stack. The application is rich in functionalities including shopping cart, user authentication, product management, and payment processing.",
             technologies: ["ReactJS", "Node.js", "Express", "MongoDB", "Stripe"],
-            image: "/src/assets/images/projects/e-com.jpg",
+            image: ecomImg,
             video: '',
             bgColor: "bg-purple-500",
             githubUrl: "https://github.com/vasilignatov/ecommerce-frontend",
@@ -71,7 +78,7 @@ export default function Projects() {
             year: "2023",
             description: "New versison coming soon... A comprehensive boilerplate for quickly building secure RESTful APIs using Express and Mongoose. Features authentication with Passport, JWT tokens with refresh functionality, global error handling, MongoDB integration, security with Helmet, CORS support, gzip compression, and XSS protection. Includes pre-built auth and user management endpoints with role-based authorization.",
             technologies: ["Express", "Node.js", "Mongoose", "MongoDB", "Passport", "JWT", "Helmet", "dotenv"],
-            image: "/src/assets/images/projects/express-boilerplate.jpg",
+            image: expressBoilerplateImg,
             video: expressBoilerplateVideo,
             bgColor: "bg-green-500",
             githubUrl: "https://github.com/vasilignatov/express-boilerplate",
