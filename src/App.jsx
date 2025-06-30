@@ -4,8 +4,8 @@ import { useState, useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 
 import LoadingScreen from './components/Layout/LoadingScreen';
-import Header from './components/Layout/Header';
-import MediaQueryDebugger from './components/Layout/MediaQueryDebugger';
+import Header from './components/Layout/Navigation';
+// import MediaQueryDebugger from './components/Layout/MediaQueryDebugger';
 // Pages
 import Hero from './components/Hero';
 import About from './components/About';
@@ -71,7 +71,7 @@ function App() {
         {!isLoading && (
           <>
             <Header />
-            <div className="slides-wrapper">
+            <div className="slides-wrapper overflow-x-hidden">
               <Hero />
               <About />
               <Work />

@@ -9,7 +9,6 @@ export default function Button({ children, className, onClick, ...props }) {
 
     // Combined click handler for smooth scroll and custom onClick
     const handleClick = (e) => {
-        // First handle smooth scroll for internal links
         if (props.href && props.href.startsWith('#')) {
             e.preventDefault();
             
@@ -26,7 +25,6 @@ export default function Button({ children, className, onClick, ...props }) {
             }
         }
         
-        // Then call custom onClick if provided
         if (onClick) {
             onClick(e);
         }
@@ -64,13 +62,13 @@ export default function Button({ children, className, onClick, ...props }) {
         <a
             ref={buttonRef}
             href={props.href}
-            className={`relative overflow-hidden px-8 py-4 rounded-full border border-black ${className || ''}`}
+            className={`relative overflow-hidden px-8 py-4 rounded-full border border-black line-clamp-1 cursor-pointer ${className || ''}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onClick={handleClick}
             {...props}
         >
-            <span ref={spanRef} className="block font-medium font-amiamie text-center">
+            <span ref={spanRef} className="block font-medium font-amiamie text-center ">
                 {children}
             </span>
         </a>

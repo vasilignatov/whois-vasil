@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import gsap from 'gsap';
 
-const Header = () => {
+export default function Navigation() {
   const [showNav, setShowNav] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
@@ -171,5 +171,3 @@ const Header = () => {
     </>
   );
 };
-
-export default Header;

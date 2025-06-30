@@ -75,7 +75,7 @@ export default function Hero() {
                     </div>
 
                     {/* Right Side - Description */}
-                    <div className="self-end mx-auto xl:max-w-[50%]">
+                    <div className="self-end mx-auto 2xl:max-w-[50%]">
                         <div className="mb-4">
                             <p className="text-md md:text-lg font-light font-dm-sans leading-relaxed">
                                 I'm a passionate front-end developer from Bulgaria who cares about design.
@@ -85,12 +85,19 @@ export default function Hero() {
                         </div>
 
                         {/* Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-4">
-
-                            <Button href={resumePDF} download className='w-full md:w-fit'>
+                        <div className="flex flex-col md:flex-row gap-4">
+                            <Button
+                                href={resumePDF}
+                                download
+                                className='w-full md:w-fit'
+                                onClick={() => {
+                                    window.open(resumePDF, '_blank');
+                                }}
+                            >
                                 Download CV
                             </Button>
-                            <Button className="" >
+                            
+                            <Button href="#contact">
                                 Contact me
                             </Button>
                         </div>

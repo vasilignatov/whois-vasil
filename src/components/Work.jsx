@@ -273,7 +273,7 @@ export default function Work() {
                     <h1 className="text-black text-stretch text-left mb-4">
                         Work
                     </h1>
-                    <p className="text-lg md:text-xl lg:text-2xl text-black mb-4 md:mb-6 font-dm-sans">
+                    <p className="w-full text-lg md:text-xl lg:text-2xl my-4 md:mb-6 font-amiamie">
                         My professional journey and key milestones in web development
                     </p>
                 </div>

@@ -32,9 +32,9 @@ export default function AboutIntro() {
                         ABOUT
                     </h1>
                     <p className='semibold w-full md:w-4/5 md:text-lg font-light font-dm-sans leading-relaxed'>
-                        Full-Stack Developer focused on building scalable, high-performance web applications with React, Next.js, and
-                        modern tooling. Specialized in headless eCommerce with Shopify and Magento integrations, with a strong emphasis
-                        on clean code, modular architecture, and high performance. Delivers production-ready solutions through clear
+                        Full-Stack Developer focused on building scalable, high-performance web applications with <span className='font-bold'>React</span>, <span className='font-bold'>Next.js</span>, and
+                        modern tooling. Specialized in headless eCommerce with <span className='font-bold'>Shopify</span> and <span className='font-bold'>Magento</span> integrations, with a strong emphasis
+                        on <span className='font-bold'>clean code</span>, <span className='font-bold'>modular architecture</span>, and <span className='font-bold'>high performance</span>. Delivers production-ready solutions through clear
                         communication and strong collaboration.
                     </p>
 

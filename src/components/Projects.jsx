@@ -239,14 +239,14 @@ export default function Projects() {
                 </h1>
 
                 <div className="w-full flex flex-col gap-8 pt-4">
-                    <div className="projects-description w-full text-lg font-semibold text-black">
+                    <div className="projects-description w-full text-lg md:text-xl lg:text-2xl my-4 md:mb-6 font-amiamie">
                         Browse through my projects and see the work I've done.
                     </div>
 
                     <Button href="#contact" className="projects-button h-fit w-fit">
-                            Contact me
-                        </Button>
-                    </div>
+                        Contact me
+                    </Button>
+                </div>
             </div>
 
             {/* Projects Grid Section */}

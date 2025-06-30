@@ -4,28 +4,40 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AboutIntro from './About/AboutIntro';
 import Technologies from './About/Technologies';
 import Certifications from './About/Certifications';
+import { SplitText } from 'gsap/SplitText';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function About() {
 
     useGSAP(() => {
-        const words = gsap.utils.toArray("#coding-since span");
-        gsap.set(words, { opacity: 0, scale: 0.5 });
-
-        ScrollTrigger.create({
-            trigger: "#coding-since-section",
-            start: "center 80%",
-            end: "bottom 80%",
-            animation: gsap.to(words, {
-                opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: "back.out(1.7)",
-                stagger: 0.2
-            })
+        const splitText = new SplitText("#coding-since", {
+            type: 'words'
         });
-    }, []);
+        const words = splitText.words;
+        
+        // Set initial state - very large scale
+        gsap.set(words, { 
+            scale: 15,
+            transformOrigin: "center center"
+        });
+
+        // Direct animation with ScrollTrigger
+        gsap.fromTo(words,
+            { scale: 15 },
+            {
+                scale: 1,
+                duration: 2,
+                ease: "power3.out",
+                stagger: 0.15,
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "center center",
+                    once: true
+                }
+            }
+        );
+    });
 
     return (
         <section

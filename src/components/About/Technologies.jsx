@@ -76,20 +76,20 @@ export default function Technologies() {
     }, { scope: "#tech-section" });
 
     return (
-        <div className="mb-16 w-auto" id="tech-section">
+        <div className="mb-16 w-auto md:h-auto" id="tech-section">
             <div className="mb-22">
                 <h1 className="text-black text-stretch-spaced text-left" ref={titleRef}>
                     Technologies
                 </h1>
             </div>
 
-            <div className="tech-container flex relative h-full ">
-                <div className="left-side flex items-center w-1/2 relative">
-                    <div className="categories flex flex-col justify-center h-full ml-24 space-y-24">
+            <div className="tech-container flex relative h-full flex-col md:flex-row">
+                <div className="left-side flex items-center justify-center md:justify-start w-full md:w-1/2 relative">
+                    <div className="categories flex flex-row md:flex-col justify-center md:justify-center h-auto md:h-full ml-0 md:ml-24 space-x-8 md:space-x-0 md:space-y-24">
                         {categories.map((category, index) => (
                             <div
                                 key={index}
-                                className={`category-${index} text-5xl font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${activeCategory === index
+                                className={`category-${index} text-2xl md:text-5xl font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${activeCategory === index
                                         ? 'active text-black opacity-100'
                                         : 'text-gray-400 opacity-50'
                                     }`}
@@ -101,13 +101,13 @@ export default function Technologies() {
                     </div>
                 </div>
 
-                <div className="right-side flex items-center justify-start w-1/2 pl-12">
+                <div className="right-side flex items-start md:items-center justify-center md:justify-start w-full md:w-1/2 pl-0 md:pl-12">
                     <div className="tech-list">
-                        <div className="text-2xl space-y-3">
+                        <div className="text-xl md:text-2xl space-y-3">
                             {technologies[activeCategory].map((tech, index) => (
                                 <div
                                     key={index}
-                                    className="text-gray-600 animate-fade-in"
+                                    className="text-gray-600 animate-fade-in text-center md:text-left"
                                     style={{ animationDelay: `${index * 0.1}s` }}
                                 >
                                     {tech}
