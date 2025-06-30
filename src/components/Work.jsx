@@ -17,31 +17,33 @@ export default function Work() {
             id: 1,
             year: "2020 - 2022",
             title: "Learning & Building",
-            // company: "Self-Employed",
             period: "2020 - 2022",
             responsibilities: [
                 "Learning new technologies and building projects to improve my skills",
-                "Built full-stack applications using React, Node.js, and Express",
+                "Built full-stack applications using <span class='font-bold'>React, Node.js, and Express</span>",
                 "Developed e-commerce solution with modern web technologies",
-                "Created responsive designs and improved coding practices"
+                "Created <span class='font-bold'>responsive designs</span> and improved coding practices"
             ],
-            projects: ["Chatbook", "E-commerce React", "Portfolio Website", "Express Boilerplate"],
-            side: "right"
+            projects: [
+                { title: "Chatbook", url: "https://sensational-kangaroo-59d175.netlify.app/" },
+                { title: "E-commerce React", url: "https://playful-daifuku-0487b1.netlify.app/" },
+                { title: "Portfolio Website", url: "https://vasilignatov.netlify.app/" },
+                { title: "Express Boilerplate", url: "https://www.npmjs.com/package/@vasilignatov/express-boilerplate" }
+            ]
         },
         {
             id: 2,
             year: "2023",
             title: "Front-End Developer (Contract)",
-            company: "Habitat – Shopify & eCommerce Agency", 
+            company: "Habitat – Shopify & eCommerce Agency",
             period: "02/2023 - 11/2023",
             description: "Joined Habitat as a contract Frontend Developer to support a headless eCommerce project for a German retail furniture business.",
             responsibilities: [
-                "Implemented new features and UI components using Next.js and React",
-                "Translated designs from Figma and Adobe XD into responsive, accessible, and modular components",
-                "Worked on frontend performance improvements with a focus on Core Web Vitals and modern best practices"
+                "Implemented new features and UI components using <span class='font-bold'>Next.js</span> and <span class='font-bold'>React</span>",
+                "Translated designs from <span class='font-bold'>Figma</span> and <span class='font-bold'>Adobe XD</span> into responsive, accessible, and modular components",
+                "Worked on frontend performance improvements with a focus on <span class='font-bold'>Core Web Vitals</span> and modern best practices"
             ],
-            projects: ["Opti-wohnwelt.de"],
-            side: "left"
+            projects: [{ title: "Opti-wohnwelt.de", url: "https://opti-wohnwelt.de" }],
         },
         {
             id: 3,
@@ -51,14 +53,19 @@ export default function Work() {
             period: "11/2023 - 06/2025",
             description: "After a successful contract period, I transitioned to a long-term role where I contributed to the development of multiple headless eCommerce storefronts.",
             responsibilities: [
-                "Implemented the architecture for a headless eCommerce storefront using React, Next.js, Redux and Shopify Storefront",
+                "Implemented the architecture for a headless eCommerce storefront using <span class='font-bold'>React, Next.js, Redux</span> and <span class='font-bold'>Shopify Storefront</span>",
                 "Worked closely with project managers to define, estimate, and deliver critical features on schedule",
                 "Developed reusable components and layouts with consistent design patterns",
-                "Ensured accessibility compliance based on WCAG standards",
-                "Refactored outdated code to align with modern best practices and migrated a legacy projects from Next.js Pages Router to the App Router"
+                "Ensured accessibility compliance based on <span class='font-bold'>WCAG</span> standards",
+                "Refactored <span class='font-bold'>outdated code</span> to align with modern best practices and migrated a legacy projects from Next.js <span class='font-bold'>Page Router</span> to the <span class='font-bold'>App Router</span>"
             ],
-            projects: ["Opti-wohnwelt.de", "Opti-Megastore.de", "Seeger24.de", "Funkelhaus.de", "Unikomodels.com"],
-            side: "right"
+            projects: [
+                { title: "Opti-wohnwelt.de", url: "https://opti-wohnwelt.de" },
+                { title: "Opti-Megastore.de", url: "https://opti-megastore.de" },
+                { title: "Seeger24.de", url: "https://seeger24.de" },
+                { title: "Funkelhaus.de", url: "https://funkelhaus.de" },
+                { title: "Unikomodels.com", url: "https://unikomodels.com" }
+            ]
         }
     ];
 
@@ -105,7 +112,7 @@ export default function Work() {
         // Animate work sections
         workExperience.forEach((work) => {
             const selector = `[data-work-id="${work.id}"]`;
-            
+
             // Animate year from left
             const year = document.querySelector(`${selector} .work-year`);
             if (year) {
@@ -130,13 +137,13 @@ export default function Work() {
             if (title) {
                 const titleSplit = new SplitText(title, { type: "chars" });
                 gsap.fromTo(titleSplit.chars,
-                    { 
-                        opacity: 0, 
+                    {
+                        opacity: 0,
                         filter: "blur(10px)",
-                        y: 50 
+                        y: 50
                     },
                     {
-                        opacity: 1, 
+                        opacity: 1,
                         filter: "blur(0px)",
                         y: 0,
                         duration: 0.8,
@@ -156,13 +163,13 @@ export default function Work() {
             if (company) {
                 const companySplit = new SplitText(company, { type: "chars" });
                 gsap.fromTo(companySplit.chars,
-                    { 
-                        opacity: 0, 
+                    {
+                        opacity: 0,
                         filter: "blur(8px)",
-                        y: 30 
+                        y: 30
                     },
                     {
-                        opacity: 1, 
+                        opacity: 1,
                         filter: "blur(0px)",
                         y: 0,
                         duration: 0.6,
@@ -281,7 +288,7 @@ export default function Work() {
                 {/* Timeline Container */}
                 <div className="relative max-w-full mx-auto">
                     {/* Central Timeline Line - Hidden on mobile */}
-                    <div 
+                    <div
                         ref={timelineLineRef}
                         className="hidden md:block absolute left-20 lg:left-1/4 w-1 bg-black h-full origin-top"
                         style={{ zIndex: 1 }}
@@ -290,7 +297,7 @@ export default function Work() {
                     {/* Timeline Items */}
                     <div className="space-y-16 md:space-y-24 lg:space-y-32">
                         {workExperience.map((work) => (
-                            <div 
+                            <div
                                 key={work.id}
                                 data-work-id={work.id}
                                 className="relative flex flex-col md:flex-row items-start"
@@ -313,14 +320,14 @@ export default function Work() {
                                     <h3 className="work-title text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-semibold text-black mb-3 md:mb-4 leading-tight font-dm-sans">
                                         {work.title}
                                     </h3>
-                                    
+
                                     {/* Company */}
                                     {work.company && (
                                         <h4 className="work-company text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light text-gray-700 mb-3 md:mb-4 font-dm-sans">
                                             {work.company}
                                         </h4>
                                     )}
-                                    
+
                                     {/* Period */}
                                     <p className="work-period text-lg md:text-xl lg:text-2xl text-gray-600 mb-4 md:mb-6 font-light font-dm-sans">
                                         {work.period}
@@ -340,7 +347,7 @@ export default function Work() {
                                             {work.responsibilities.map((responsibility, idx) => (
                                                 <li key={idx} className="bullet-point text-md md:text-lg lg:text-xl text-gray-700 leading-relaxed flex items-start font-light font-dm-sans">
                                                     <span className="inline-block w-3 h-3 md:w-4 md:h-4 bg-black rounded-full mt-2 md:mt-3 mr-4 md:mr-6 flex-shrink-0"></span>
-                                                    <span>{responsibility}</span>
+                                                    <span dangerouslySetInnerHTML={{ __html: responsibility }}></span>
                                                 </li>
                                             ))}
                                         </ul>
@@ -351,11 +358,14 @@ export default function Work() {
                                         <h5 className="text-lg md:text-xl lg:text-2xl font-semibold text-black mb-4 md:mb-6 font-dm-sans">Projects:</h5>
                                         <div className="flex flex-wrap gap-3 md:gap-4">
                                             {work.projects.map((project, idx) => (
-                                                <Button 
+                                                <Button
                                                     key={idx}
+                                                    href={project.url ? project.url : "#"}
+                                                    target={project.url ? "_blank" : "_self"}
+                                                    rel={project.url ? "noopener noreferrer" : ""}
                                                     className="project-tag px-4 md:px-6 py-2 md:py-3 text-sm md:text-base lg:text-lg font-medium"
                                                 >
-                                                    {project}
+                                                    {project.title}
                                                 </Button>
                                             ))}
                                         </div>

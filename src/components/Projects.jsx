@@ -42,7 +42,7 @@ export default function Projects() {
             image: "/src/assets/images/projects/old_portfolio.png",
             video: cvStartVideo,
             bgColor: "bg-gray-600",
-            githubUrl: "https://github.com/vasilignatov/old-portfolio",
+            githubUrl: "https://github.com/vasilignatov/vasilignatov.dev",
             liveUrl: "https://vasilignatov.netlify.app/"
         },
         {
@@ -57,7 +57,7 @@ export default function Projects() {
             liveUrl: "https://sensational-kangaroo-59d175.netlify.app/"
         },
         {
-            name: "E-commerce React App",
+            name: "E-commerce React",
             year: "2022",
             description: "E-commerce project created with MERN stack. The application is rich in functionalities including shopping cart, user authentication, product management, and payment processing.",
             technologies: ["ReactJS", "Node.js", "Express", "MongoDB", "Stripe"],
