@@ -146,7 +146,6 @@ export default function Navigation() {
           <div className="flex items-center ">
             {navigationItems.map((item) => {
               const isActive = activeSection === item.sectionId;
-              console.log(activeSection);
               return (
                 <a
                   key={item.name}

@@ -24,6 +24,7 @@ gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Projects() {
     const containerRef = useRef();
+    const moreToComeRef = useRef();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
 
@@ -31,7 +32,7 @@ export default function Projects() {
     const projects = [
         {
             name: "Animated Portfolio",
-            year: "2024",
+            year: "2025",
             description: "Modern animated portfolio website built with React and GSAP. Features smooth scroll animations, interactive project cards, split-text effects, horizontal scrolling sections, and responsive design with Tailwind CSS. Showcases advanced animation techniques and modern web development skills.",
             technologies: ["React", "GSAP", "ScrollTrigger", "SplitText", "Tailwind CSS", "Vite"],
             image: newPortfolioImg,
@@ -59,7 +60,7 @@ export default function Projects() {
             image: chatbookImg,
             video: chatbookVideo,
             bgColor: "bg-yellow-400",
-            githubUrl: "https://github.com/vasilignatov/chatbook-frontend",
+            githubUrl: "https://github.com/vasilignatov/chatbook",
             liveUrl: "https://sensational-kangaroo-59d175.netlify.app/"
         },
         {
@@ -70,7 +71,7 @@ export default function Projects() {
             image: ecomImg,
             video: '',
             bgColor: "bg-purple-500",
-            githubUrl: "https://github.com/vasilignatov/ecommerce-frontend",
+            githubUrl: "https://github.com/vasilignatov/e-commerce-app",
             liveUrl: "https://playful-daifuku-0487b1.netlify.app/"
         },
         {
@@ -98,61 +99,57 @@ export default function Projects() {
                 duration: 1.2,
                 ease: "power3.out"
             }
-        )
-            .fromTo(".projects-description",
-                { y: 60, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 1,
-                    ease: "power3.out"
-                },
-                "-=0.8"
-            )
-            .fromTo(".projects-button",
-                { y: 40, opacity: 0 },
-                {
-                    y: 0,
-                    opacity: 1,
-                    duration: 0.8,
-                    ease: "power3.out"
-                },
-                "-=0.6"
-            );
+        ).fromTo(".projects-description", {
+            y: 60,
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        }, "-=0.8")
+            .fromTo(".contact-button", {
+                y: 40,
+                opacity: 0
+            }, {
+                y: 0,
+                pacity: 1,
+                duration: 0.8,
+                ease: "power.inOut"
+            }, "-=0.6");
 
         // Animate cards with stagger effect
         gsap.fromTo(".project-card",
             {
-                y: 80,
                 opacity: 0,
-                scale: 0.8,
-                rotationX: 45
+                scale: 0.4,
             },
             {
-                y: 0,
                 opacity: 1,
                 scale: 1,
-                rotationX: 0,
                 duration: 1,
-                ease: "power3.out",
+                delay: 0.2,
                 stagger: {
-                    amount: 1.2,
+                    each: 1,
                     from: "start",
-                    grid: [2, 4]
+                    to: "end",
+                    grid: "auto",
+                    axis: 'x'
                 },
                 scrollTrigger: {
+                    scrub: true,
                     trigger: ".projects-grid",
-                    start: "top 70%",
-                    end: "bottom 30%",
-                    toggleActions: "play none none reverse"
+                    markers: true,
+                    start: "top 60%",
+                    end: "center center",
+                    toggleActions: "play pause none reverse"
                 }
             }
         );
 
         // Animate "more to come" text with SplitText
-        const moreToComeElement = document.querySelector("#more-to-come");
-        if (moreToComeElement) {
-            const split = new SplitText(moreToComeElement, { type: "chars" });
+        if (moreToComeRef.current) {
+            const split = new SplitText(moreToComeRef.current, { type: "chars" });
 
             gsap.fromTo(split.chars,
                 {
@@ -184,6 +181,7 @@ export default function Projects() {
         };
 
         const videoObserver = new IntersectionObserver((entries) => {
+            console.log("entries", entries);
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const video = entry.target;
@@ -197,113 +195,18 @@ export default function Projects() {
             });
         }, observerOptions);
 
-        // Hover animations for cards with video control
+        // Set up lazy loading for videos
         const cards = gsap.utils.toArray(".project-card");
 
         cards.forEach(card => {
             const video = card.querySelector(".card-video");
-            const image = card.querySelector(".card-image");
-            const content = card.querySelector(".card-content");
             const hasVideo = video !== null;
-            
+
             // Set up lazy loading for video if it exists
             if (hasVideo && video.dataset.src) {
                 videoObserver.observe(video);
             }
-
-            card.addEventListener("mouseenter", () => {
-                // GSAP animations
-                gsap.to(card, {
-                    y: -10,
-                    scale: 1.05,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-                
-                // Scale the appropriate media element
-                if (hasVideo) {
-                    gsap.to(video, {
-                        scale: 1.1,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
-                } else {
-                    gsap.to(image, {
-                        scale: 1.1,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
-                }
-                
-                gsap.to(content, {
-                    y: -5,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-
-                // Play video on hover (only if video exists and is loaded)
-                if (hasVideo && !video.dataset.src) {
-                    video.currentTime = 0; // Reset to beginning
-                    video.play().catch(e => console.log('Video play failed:', e));
-                    
-                    // Fade out image, fade in video
-                    gsap.to(image, { opacity: 0, duration: 0.3 });
-                    gsap.to(video, { opacity: 1, duration: 0.3 });
-                }
-            });
-
-            card.addEventListener("mouseleave", () => {
-                // GSAP animations
-                gsap.to(card, {
-                    y: 0,
-                    scale: 1,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-                
-                // Reset scale for the appropriate media element
-                if (hasVideo) {
-                    gsap.to(video, {
-                        scale: 1,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
-                } else {
-                    gsap.to(image, {
-                        scale: 1,
-                        duration: 0.3,
-                        ease: "power2.out"
-                    });
-                }
-                
-                gsap.to(content, {
-                    y: 0,
-                    duration: 0.3,
-                    ease: "power2.out"
-                });
-
-                // Pause video on mouse leave (only if video exists and is loaded)
-                if (hasVideo && !video.dataset.src) {
-                    video.pause();
-                    
-                    // Fade in image, fade out video
-                    gsap.to(image, { opacity: 1, duration: 0.3 });
-                    gsap.to(video, { opacity: 0, duration: 0.3 });
-                }
-            });
         });
-
-        // Modal animations
-        if (isModalOpen) {
-            gsap.fromTo(".modal-overlay",
-                { opacity: 0 },
-                { opacity: 1, duration: 0.3, ease: "power2.out" }
-            );
-            gsap.fromTo(".modal-content",
-                { scale: 0.8, opacity: 0 },
-                { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.7)" }
-            );
-        }
 
         // Cleanup observer on component unmount/re-render
         return () => {
@@ -327,7 +230,9 @@ export default function Projects() {
                         Browse through my projects and see the work I've done.
                     </div>
 
-                    <Button href="#contact" className="projects-button h-fit w-fit">
+                    <Button
+                        href="#contact"
+                        className="contact-button h-fit w-fit">
                         Contact me
                     </Button>
                 </div>
@@ -341,14 +246,17 @@ export default function Projects() {
                     {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="project-card cursor-pointer transition-all duration-300 hover:scale-105"
+                            className="project-card h-auto cursor-pointer transition-all duration-300 hover:shadow-xl"
                             onClick={() => {
                                 setSelectedProject(project);
                                 setIsModalOpen(true);
                             }}
+                            onMouseEnter={() => {
+                                
+                            }}
                         >
                             {/* Card Container */}
-                            <div className="bg-white p-6 border border-gray-300 shadow-sm">
+                            <div className="bg-white h-full p-6 border border-black shadow-sm">
                                 {/* Card Media Container */}
                                 <div className="mb-3 overflow-hidden relative bg-gray-100">
                                     {/* Static Image (default visible) */}
@@ -359,7 +267,7 @@ export default function Projects() {
                                         loading="lazy"
                                         decoding="async"
                                     />
-                                    
+
                                     {/* Video (hidden by default, shown on hover) - only if video exists */}
                                     {project.video && (
                                         <video
@@ -377,12 +285,12 @@ export default function Projects() {
 
                                 {/* Card Content */}
                                 <div className="card-content mt-3">
-                                    <h3 className="text-2xl font-bold text-black mb-1 leading-tight">
+                                    <h3 className="text-3xl lg:text-2xl xl:text-3xl 2xl:text-4xl font-semibold text-black mb-1 leading-tight">
                                         {project.name}
                                     </h3>
-                                    {/* <p className="text-xl text-gray-600 font-normal">
-                                        {project.year}
-                                    </p> */}
+                                    <p className="text-xl text-gray-600 font-normal line-clamp-1">
+                                        {project.description}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -391,7 +299,7 @@ export default function Projects() {
             </div>
 
             <div className="h-[80vh] flex flex-col justify-center items-center">
-                <div className="w-full text-stretch-spaced text-center text-black" id="more-to-come">
+                <div ref={moreToComeRef} className="w-full text-stretch-spaced text-center text-black" id="more-to-come">
                     and more to come...
                 </div>
             </div>
