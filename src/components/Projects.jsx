@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
@@ -20,6 +20,64 @@ import chatbookImg from "../assets/images/projects/chatbook.jpg";
 import ecomImg from "../assets/images/projects/e-com.jpg";
 import expressBoilerplateImg from "../assets/images/projects/express-boilerplate.jpg";
 
+const projects = [
+    {
+        name: "Animated Portfolio",
+        year: "2025",
+        description: "Modern animated portfolio website built with React and GSAP. Features smooth scroll animations, interactive project cards, split-text effects, horizontal scrolling sections, and responsive design with Tailwind CSS. Showcases advanced animation techniques and modern web development skills.",
+        technologies: ["React", "GSAP", "ScrollTrigger", "SplitText", "Tailwind CSS", "Vite"],
+        image: newPortfolioImg,
+        video: newCvVideo,
+        bgColor: "bg-indigo-500",
+        githubUrl: "https://github.com/vasilignatov/whois-vasil",
+        liveUrl: "https://vasilignatov.dev/"
+    },
+    {
+        name: "Old Portfolio",
+        year: "2023",
+        description: "Classic portfolio website built with vanilla JavaScript, HTML and CSS. Features clean design, responsive layout, and showcases previous web development projects and skills.",
+        technologies: ["JavaScript", "HTML", "CSS", "Bootstrap"],
+        image: oldPortfolioImg,
+        video: oldCvVideo,
+        bgColor: "bg-gray-600",
+        githubUrl: "https://github.com/vasilignatov/vasilignatov.dev",
+        liveUrl: "https://vasilignatov.netlify.app/"
+    },
+    {
+        name: "Chatbook",
+        year: "2023",
+        description: "Chatbook is Messenger clone application created with MERN stack and socket.io for real time chatting. Features include real-time messaging, user authentication, and modern chat interface.",
+        technologies: ["ReactJS", "React-Bootstrap", "Express", "Node.js", "Socket.io", "Mongoose"],
+        image: chatbookImg,
+        video: chatbookVideo,
+        bgColor: "bg-yellow-400",
+        githubUrl: "https://github.com/vasilignatov/chatbook",
+        liveUrl: "https://sensational-kangaroo-59d175.netlify.app/"
+    },
+    {
+        name: "E-commerce React",
+        year: "2022",
+        description: "E-commerce project created with MERN stack. The application is rich in functionalities including shopping cart, user authentication, product management, and payment processing.",
+        technologies: ["ReactJS", "Node.js", "Express", "MongoDB", "Stripe"],
+        image: ecomImg,
+        video: '',
+        bgColor: "bg-purple-500",
+        githubUrl: "https://github.com/vasilignatov/e-commerce-app",
+        liveUrl: "https://playful-daifuku-0487b1.netlify.app/"
+    },
+    {
+        name: "Express Boilerplate",
+        year: "2023",
+        description: "New versison coming soon... A comprehensive boilerplate for quickly building secure RESTful APIs using Express and Mongoose. Features authentication with Passport, JWT tokens with refresh functionality, global error handling, MongoDB integration, security with Helmet, CORS support, gzip compression, and XSS protection. Includes pre-built auth and user management endpoints with role-based authorization.",
+        technologies: ["Express", "Node.js", "Mongoose", "MongoDB", "Passport", "JWT", "Helmet", "dotenv"],
+        image: expressBoilerplateImg,
+        video: expressBoilerplateVideo,
+        bgColor: "bg-green-500",
+        githubUrl: "https://github.com/vasilignatov/express-boilerplate",
+        liveUrl: "https://www.npmjs.com/package/@vasilignatov/express-boilerplate"
+    }
+];
+
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 export default function Projects() {
@@ -28,64 +86,41 @@ export default function Projects() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedProject, setSelectedProject] = useState(null);
 
-    // Real projects data from vasilignatov.dev
-    const projects = [
-        {
-            name: "Animated Portfolio",
-            year: "2025",
-            description: "Modern animated portfolio website built with React and GSAP. Features smooth scroll animations, interactive project cards, split-text effects, horizontal scrolling sections, and responsive design with Tailwind CSS. Showcases advanced animation techniques and modern web development skills.",
-            technologies: ["React", "GSAP", "ScrollTrigger", "SplitText", "Tailwind CSS", "Vite"],
-            image: newPortfolioImg,
-            video: newCvVideo,
-            bgColor: "bg-indigo-500",
-            githubUrl: "https://github.com/vasilignatov/whois-vasil",
-            liveUrl: "https://vasilignatov.dev/"
-        },
-        {
-            name: "Old Portfolio",
-            year: "2023",
-            description: "Classic portfolio website built with vanilla JavaScript, HTML and CSS. Features clean design, responsive layout, and showcases previous web development projects and skills.",
-            technologies: ["JavaScript", "HTML", "CSS", "Bootstrap"],
-            image: oldPortfolioImg,
-            video: oldCvVideo,
-            bgColor: "bg-gray-600",
-            githubUrl: "https://github.com/vasilignatov/vasilignatov.dev",
-            liveUrl: "https://vasilignatov.netlify.app/"
-        },
-        {
-            name: "Chatbook",
-            year: "2023",
-            description: "Chatbook is Messenger clone application created with MERN stack and socket.io for real time chatting. Features include real-time messaging, user authentication, and modern chat interface.",
-            technologies: ["ReactJS", "React-Bootstrap", "Express", "Node.js", "Socket.io", "Mongoose"],
-            image: chatbookImg,
-            video: chatbookVideo,
-            bgColor: "bg-yellow-400",
-            githubUrl: "https://github.com/vasilignatov/chatbook",
-            liveUrl: "https://sensational-kangaroo-59d175.netlify.app/"
-        },
-        {
-            name: "E-commerce React",
-            year: "2022",
-            description: "E-commerce project created with MERN stack. The application is rich in functionalities including shopping cart, user authentication, product management, and payment processing.",
-            technologies: ["ReactJS", "Node.js", "Express", "MongoDB", "Stripe"],
-            image: ecomImg,
-            video: '',
-            bgColor: "bg-purple-500",
-            githubUrl: "https://github.com/vasilignatov/e-commerce-app",
-            liveUrl: "https://playful-daifuku-0487b1.netlify.app/"
-        },
-        {
-            name: "Express Boilerplate",
-            year: "2023",
-            description: "New versison coming soon... A comprehensive boilerplate for quickly building secure RESTful APIs using Express and Mongoose. Features authentication with Passport, JWT tokens with refresh functionality, global error handling, MongoDB integration, security with Helmet, CORS support, gzip compression, and XSS protection. Includes pre-built auth and user management endpoints with role-based authorization.",
-            technologies: ["Express", "Node.js", "Mongoose", "MongoDB", "Passport", "JWT", "Helmet", "dotenv"],
-            image: expressBoilerplateImg,
-            video: expressBoilerplateVideo,
-            bgColor: "bg-green-500",
-            githubUrl: "https://github.com/vasilignatov/express-boilerplate",
-            liveUrl: "https://www.npmjs.com/package/@vasilignatov/express-boilerplate"
-        }
-    ];
+    useEffect(() => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '100px',
+            threshold: 0.1
+        };
+
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    // Only load if video has data-src and hasn't been loaded yet
+                    if (video.dataset.src && !video.src) {
+                        video.src = video.dataset.src;
+                        video.load();
+                        video.removeAttribute('data-src');
+                        videoObserver.unobserve(video);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        // Set up lazy loading for videos
+        const videos = document.querySelectorAll('.card-video[data-src]');
+        videos.forEach(video => {
+            if (!video.src) {
+                videoObserver.observe(video);
+            }
+        });
+
+        // Cleanup observer on component unmount
+        return () => {
+            videoObserver.disconnect();
+        };
+    }, []);
 
     useGSAP(() => {
         // Animate intro section elements on load
@@ -113,7 +148,7 @@ export default function Projects() {
                 opacity: 0
             }, {
                 y: 0,
-                pacity: 1,
+                opacity: 1,
                 duration: 0.8,
                 ease: "power.inOut"
             }, "-=0.6");
@@ -139,7 +174,6 @@ export default function Projects() {
                 scrollTrigger: {
                     scrub: true,
                     trigger: ".projects-grid",
-                    markers: true,
                     start: "top 60%",
                     end: "center center",
                     toggleActions: "play pause none reverse"
@@ -172,50 +206,7 @@ export default function Projects() {
                 }
             );
         }
-
-        // Intersection Observer for lazy loading videos
-        const observerOptions = {
-            root: null,
-            rootMargin: '100px',
-            threshold: 0.1
-        };
-
-        const videoObserver = new IntersectionObserver((entries) => {
-            console.log("entries", entries);
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const video = entry.target;
-                    if (video.dataset.src) {
-                        video.src = video.dataset.src;
-                        video.load();
-                        video.removeAttribute('data-src');
-                        videoObserver.unobserve(video);
-                    }
-                }
-            });
-        }, observerOptions);
-
-        // Set up lazy loading for videos
-        const cards = gsap.utils.toArray(".project-card");
-
-        cards.forEach(card => {
-            const video = card.querySelector(".card-video");
-            const hasVideo = video !== null;
-
-            // Set up lazy loading for video if it exists
-            if (hasVideo && video.dataset.src) {
-                videoObserver.observe(video);
-            }
-        });
-
-        // Cleanup observer on component unmount/re-render
-        return () => {
-            if (videoObserver) {
-                videoObserver.disconnect();
-            }
-        };
-
-    }, { scope: containerRef, dependencies: [isModalOpen] });
+    }, { scope: containerRef });
 
     return (
         <section id="projects" className="panel relative">
@@ -246,13 +237,43 @@ export default function Projects() {
                     {projects.map((project, index) => (
                         <div
                             key={index}
-                            className="project-card h-auto cursor-pointer transition-all duration-300 hover:shadow-xl"
+                            className="project-card h-auto cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 hover:border-gray-400"
                             onClick={() => {
                                 setSelectedProject(project);
                                 setIsModalOpen(true);
                             }}
-                            onMouseEnter={() => {
-                                
+                            onMouseEnter={(e) => {
+                                const card = e.currentTarget;
+                                const video = card.querySelector(".card-video");
+                                const image = card.querySelector(".card-image");
+
+                                // Play video on hover (only if video exists and is loaded)
+                                if (video && !video.dataset.src) {
+                                    video.currentTime = 0; // Reset to beginning
+                                    video.play().catch(e => console.log('Video play failed:', e));
+
+                                    // Show video, hide image
+                                    if (image) {
+                                        image.style.opacity = '0';
+                                        video.style.opacity = '1';
+                                    }
+                                }
+                            }}
+                            onMouseLeave={(e) => {
+                                const card = e.currentTarget;
+                                const video = card.querySelector(".card-video");
+                                const image = card.querySelector(".card-image");
+
+                                // Pause video on mouse leave (only if video exists and is loaded)
+                                if (video && !video.dataset.src) {
+                                    video.pause();
+
+                                    // Show image, hide video
+                                    if (image) {
+                                        image.style.opacity = '1';
+                                        video.style.opacity = '0';
+                                    }
+                                }
                             }}
                         >
                             {/* Card Container */}
