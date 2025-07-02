@@ -78,9 +78,8 @@ export default function Hero() {
                     <div className="self-end mx-auto 2xl:max-w-[50%]">
                         <div className="mb-4">
                             <p className="text-md md:text-lg font-light font-dm-sans leading-relaxed">
-                                I'm a passionate front-end developer from Bulgaria who cares about design.
-                                My focus is on precise integration and crafting innovative user experiences
-                                with modern web technologies.
+                                <span className="font-bold">Full-stack developer</span> crafting digital experiences that make an impact. 
+                                Building modern web solutions with precision and passion, from concept to deployment.
                             </p>
                         </div>
 
